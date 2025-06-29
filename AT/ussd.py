@@ -3,17 +3,21 @@ from fastapi import APIRouter, Request
 router = APIRouter(prefix="/ussd", tags=["ussd"])
 
 @router.post("/")
-async def facility_ussd(request: Request):
-    # Read the variables sent via POST from our API
-    # session_id   = request.values.get("sessionId", None)
-    # serviceCode  = request.values.get("serviceCode", None)
-    # phone_number = request.values.get("phoneNumber", None)
-    # text         = request.values.get("text", "default")
-    text = ""
-    phone_number = "08106422202"
+async def ussd_callback_url(request: Request):
     form = await request.form()
     print("📨 Incoming SMS Payload:")
-    print(dict(form))
+    request = dict(form)
+    print(request)
+
+    # Read the variables sent via POST from our API
+    session_id   = request.get("sessionId", None)
+    serviceCode  = request.get("serviceCode", None)
+    phone_number = request.get("phoneNumber", None)
+    text = request.get("text", "default")
+
+    print(session_id)
+    print(serviceCode)
+    
 
     if text == '':
         # This is the first request. Note how we start the response with CON

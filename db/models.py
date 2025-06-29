@@ -1,12 +1,16 @@
+from enum import Enum
 from typing import Optional
 from sqlmodel import SQLModel, Field, Relationship
 from datetime import datetime
+    
 
 # ---------- Facility ----------
 class Facility(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     name: str
-    code: str = Field(index=True, unique=True)
+    type: str
+    facility_code: str | None = None
+    license_number: str = Field(index=True, unique=True)
     location: str
     contact_info: str
 
@@ -19,10 +23,10 @@ class Facility(SQLModel, table=True):
 # ---------- Medicine Inventory ----------
 class MedicineInventory(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
-    facility_id: int = Field(foreign_key="facility.id")
+    facility_code: int = Field(foreign_key="facility.facility_code")
     medicine_name: str
     quantity: int
-    expiry_date: datetime
+    expiry_date: str
     last_updated: datetime = Field(default_factory=datetime.utcnow)
 
     # Relationships
