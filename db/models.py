@@ -9,7 +9,7 @@ class Facility(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     name: str
     type: str
-    facility_code: str | None = None
+    facility_code: str | None = Field(default=None, index=True, unique=True)  
     license_number: str = Field(index=True, unique=True)
     location: str
     contact_info: str
@@ -23,7 +23,7 @@ class Facility(SQLModel, table=True):
 # ---------- Medicine Inventory ----------
 class MedicineInventory(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
-    facility_code: int = Field(foreign_key="facility.facility_code")
+    facility_code: str = Field(foreign_key="facility.facility_code")
     medicine_name: str
     quantity: int
     expiry_date: str
