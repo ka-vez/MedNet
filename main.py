@@ -19,3 +19,5 @@ app.include_router(ussd.router)
 # TODO work on facilities sending emergency requests to other facilities
 
 # TODO work on AI features to suggest medicines based on symptoms and give clinic closest to the user
+
+# TODO configure Project to use UV 
